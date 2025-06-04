@@ -1,8 +1,8 @@
 import {
-  checkAvailability,
   Flight,
+  checkAvailability,
   holdSeats,
-  reserveSeats,
+  reserveSeats
 } from './flights-solution';
 
 export interface Booking {
@@ -18,25 +18,37 @@ const bookings: Booking[] = [];
 const bookingsFactory = (bookingNumber: number) => (
   flight: Flight,
   seatsHeld: number
-): Booking => {
-  throw new Error('Not implemented!');
-};
+): Booking => ({
+  bookingNumber: bookingNumber++,
+  flight,
+  paid: false,
+  seatsHeld,
+  seatsReserved: 0,
+});
 
-const createBooking = () => {
-  throw new Error('Not implemented!');
-};
+const createBooking = bookingsFactory(1);
 
 export const startBooking = (
   flight: Flight,
   seatsRequested: number
 ): Booking => {
-  throw new Error('Not implemented!');
+  if (checkAvailability(flight, seatsRequested)) {
+    holdSeats(flight, seatsRequested);
+    return createBooking(flight, seatsRequested);
+  } else {
+    throw new Error('There are not enough available seats on this flight to start the booking');
+  }
 };
 
 export const processPayment = (booking: Booking): Booking => {
-  throw new Error('Not implemented!');
+  booking.paid = true;
+  return booking;
 };
 
 export const completeBooking = (booking: Booking): Booking => {
-  throw new Error('Not implemented!');
+  booking.seatsReserved += booking.seatsHeld;
+  reserveSeats(booking.flight, booking.seatsReserved);
+  booking.seatsHeld = 0;
+
+  return booking;
 };

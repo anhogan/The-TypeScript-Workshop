@@ -64,16 +64,28 @@ export const checkAvailability = (
   flight: Flight,
   seatsRequested: number
 ): boolean => {
-  throw new Error('Not implemented!');
+  return seatsRequested <= flight.seatsRemaining - flight.seatsHeld ? true : false;
 };
 
 export const holdSeats = (flight: Flight, seatsRequested: number): Flight => {
-  throw new Error('Not implemented!');
+  if (checkAvailability(flight, seatsRequested)) {
+    flight.seatsHeld += seatsRequested;
+    return flight;
+  } else {
+    throw new Error('There are not enough available seats on this flight');
+  }
 };
 
 export const reserveSeats = (
   flight: Flight,
   seatsRequested: number
 ): Flight => {
-  throw new Error('Not implemented!');
+  if (checkAvailability(flight, seatsRequested)) {
+    flight.seatsRemaining -= seatsRequested;
+    flight.seatsHeld -= seatsRequested;
+
+    return flight;
+  } else {
+    throw new Error('There are not enough available seats on this flight');
+  }
 };

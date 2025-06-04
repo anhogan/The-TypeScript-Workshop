@@ -1,8 +1,8 @@
 /// <reference path="../types/HeatMapTypes.d.ts"/>
 import hmt = require("HeatMapTypes");
 import _ = require("lodash");
-import { data, findMatch } from "./../heat_map_data.js";
 import "jasmine";
+import { data, findMatch } from "./../heat_map_data.js";
 
 describe("heat map data shape", () => {
   it("should have an attribute called batterHotZones", () => {

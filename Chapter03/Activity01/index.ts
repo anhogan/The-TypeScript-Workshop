@@ -14,11 +14,11 @@ console.log('Booked to Lagos', lagosBooking);
 console.log('Lagos flight', destinations[0]);
 
 // Want to go to Istanbul, but the flight is full!
-try {
-  startBooking(destinations[5], 7);
-} catch (e) {
-  console.error(e.message);
-}
+// try {
+//   startBooking(destinations[5], 7);
+// } catch (e) {
+//   console.error(e.message);
+// }
 
 // Let's try the other flight to Istanbul
 let istanbulBooking = startBooking(destinations[6], 7);
