@@ -1,5 +1,16 @@
+type Constructable = { new(...args: any[]): {} };
+
+function Token(hasToken: boolean) {
+    return function <T extends Constructable>(constructor: T) {
+        return class extends constructor {
+            token: boolean = hasToken;
+        }
+    }
+}
+
+@Token(true)
 class Teacher {
-    constructor (public id: number, public name: string) {}
+    constructor(public id: number, public name: string) { }
     // teacher specific code
 }
 

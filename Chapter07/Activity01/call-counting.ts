@@ -1,9 +1,10 @@
 @CountClass('person')
-class Person{
-
-    constructor (public firstName: string, public lastName: string, public birthDate: Date) {
-
-    }
+class Person {
+    constructor(public firstName: string, public lastName: string, public birthDate: Date) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthDate = birthDate;
+    };
 
     private _title: string;
 
@@ -32,16 +33,16 @@ class Person{
 
 const count = {};
 
-type Constructable = { new (...args: any[]): {} };
+type Constructable = { new(...args: any[]): {} };
 
 function CountClass(counterName: string) {
     return function <T extends Constructable>(constructor: T) {
         const wrappedConstructor: any = function (...args: any[]) {
             const result = new constructor(...args);
             if (count[counterName]) {
-                count[counterName]+=1;
+                count[counterName] += 1;
             } else {
-                count[counterName]=1;
+                count[counterName] = 1;
             }
             return result;
         };
@@ -57,10 +58,10 @@ function CountMethod(counterName: string) {
             const original = descriptor.value;
             descriptor.value = function (...args: any[]) {
                 if (count[counterName]) {
-                    count[counterName]+=1;
+                    count[counterName] += 1;
                 } else {
-                    count[counterName]=1;
-                }                
+                    count[counterName] = 1;
+                }
                 return original.apply(this, args);
             }
         }
@@ -68,9 +69,9 @@ function CountMethod(counterName: string) {
             const original = descriptor.get;
             descriptor.get = function () {
                 if (count[counterName]) {
-                    count[counterName]+=1;
+                    count[counterName] += 1;
                 } else {
-                    count[counterName]=1;
+                    count[counterName] = 1;
                 }
                 return original.apply(this, []);
             }
@@ -79,9 +80,9 @@ function CountMethod(counterName: string) {
             const original = descriptor.set;
             descriptor.set = function (value: any) {
                 if (count[counterName]) {
-                    count[counterName]+=1;
+                    count[counterName] += 1;
                 } else {
-                    count[counterName]=1;
+                    count[counterName] = 1;
                 }
                 return original.apply(this, [value]);
             }
@@ -91,9 +92,9 @@ function CountMethod(counterName: string) {
 
 //////////////////
 
-const first = new Person("Brendan", "Eich", new Date(1961,6,4));
-const second = new Person("Anders", "Hejlsberg ", new Date(1960,11,2));
-const third = new Person("Alan", "Turing", new Date(1912,5,23));
+const first = new Person("Brendan", "Eich", new Date(1961, 6, 4));
+const second = new Person("Anders", "Hejlsberg ", new Date(1960, 11, 2));
+const third = new Person("Alan", "Turing", new Date(1912, 5, 23));
 
 const fname = first.getFullName();
 const sname = second.getFullName();
