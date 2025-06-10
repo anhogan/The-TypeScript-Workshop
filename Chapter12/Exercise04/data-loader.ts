@@ -5,5 +5,5 @@ const updateUI = (message: any): void => {
   }
 };
 
-const message = fetch('http://localhost:8080/data.json');
-updateUI(message);
+fetch('http://localhost:8080/data.json').then((response) =>
+  response.json().then((body) => updateUI(body.message)))

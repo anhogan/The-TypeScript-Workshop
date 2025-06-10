@@ -12,22 +12,42 @@ const getTheValue = async (val: number = 0) => {
   });
 };
 
-Promise.all([
-  getTheValue(),
-  getTheValue(),
-  getTheValue(),
-  getTheValue(),
-  getTheValue(),
-  getTheValue(),
-  getTheValue(),
-  getTheValue(),
-  getTheValue(),
-  getTheValue(),
-])
-  .then((values) =>
-    console.log(
-      `The total is ${values.reduce((prev, current) => prev + current, 0)}`
-    )
+// Solution doesn't work correctly with bad modulus numbers
+// Promise.all([
+//   getTheValue(),
+//   getTheValue(),
+//   getTheValue(),
+//   getTheValue(),
+//   getTheValue(),
+//   getTheValue(),
+//   getTheValue(),
+//   getTheValue(),
+//   getTheValue(),
+//   getTheValue(),
+// ])
+//   .then((values) =>
+//     console.log(
+//       `The total is ${values.reduce((prev, current) => prev + current, 0)}`
+//     )
+//   )
+//   .catch((err) => console.error(err))
+//   .finally(() => console.log('We are done!'));
+
+let count = 0;
+
+const runRecursiveLoop = () => {
+  Promise.all(
+    Array(10)
+      .fill(null)
+      .map(() => getTheValue())
   )
-  .catch((err) => console.error(err))
-  .finally(() => console.log('We are done!'));
+    .then((values) =>
+      console.log(
+        `The total is ${values.reduce((prev, current) => prev + current, 0)}`
+      )
+    )
+    .catch(runRecursiveLoop)
+    .finally(() => console.log(`completed loop ${++count}`));
+};
+
+runRecursiveLoop();
