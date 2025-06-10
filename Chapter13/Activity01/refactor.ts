@@ -1,5 +1,5 @@
 export class El {
-  constructor(private name: string) {}
+  constructor(private name: string) { }
   render = () => {
     return new Promise((resolve) =>
       setTimeout(
@@ -14,16 +14,10 @@ const e1 = new El('header');
 const e2 = new El('body');
 const e3 = new El('footer');
 
-const renderAll = () => {
-  e1.render().then((msg1) => {
-    console.log(msg1);
-    e2.render().then((msg2) => {
-      console.log(msg2);
-      e3.render().then((msg3) => {
-        console.log(msg3);
-      });
-    });
-  });
+const renderAll = async () => {
+  console.log(await e1.render())
+  console.log(await e2.render())
+  console.log(await e3.render())
 };
 
 renderAll();
