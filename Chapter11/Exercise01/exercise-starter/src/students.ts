@@ -79,7 +79,29 @@ const students: Student[] = [
   },
 ];
 
-function getAverageScoreOf2010Students(students: Student[]): number {}
+function getAverageScoreOf2010Students(students: Student[]): number {
+  // let score = 0
+  // let relevantStudents = 0
+
+  // for (let i = 0; i < students.length; i++) {
+  //   const student = students[i]
+  //   if (student.graduationYear === 2010) {
+  //     score += student.score
+  //     relevantStudents++
+  //   }
+  // }
+
+  // return score / relevantStudents
+
+  // Alt. Implementation
+  const relevantStudents = students
+    .filter((student) => student.graduationYear === 2010)
+    .map((student) => student.score)
+
+  const relevantStudentsScore = relevantStudents.reduce((acc, curr) => acc + curr, 0)
+
+  return relevantStudentsScore / relevantStudents.length;
+}
 
 const average2010StudentsScore = getAverageScoreOf2010Students(students);
 console.log(
